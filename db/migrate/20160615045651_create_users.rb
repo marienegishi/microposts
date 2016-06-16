@@ -1,13 +1,11 @@
-class CreateUsers < ActiveRecord::Migration
+class CreateMicroposts < ActiveRecord::Migration
   def change
-    create_table :users do |t|
-      t.string :name
-      t.string :email
-      t.string :password_digest
+    create_table :microposts do |t|
+      t.references :user, index: true, foreign_key: true
+      t.text :content
 
       t.timestamps null: false
-
-      t.index :email, unique: true # この行を追加
+      t.index [:user_id, :created_at]
     end
   end
 end
