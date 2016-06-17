@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check, only: [:edit, :update]
-
+ 
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.order(created_at: :desc)
@@ -18,6 +18,18 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  def followings
+    @title = "Followings"
+        @user = User.find(params[:id])
+        @users = @user.following_users
+  end
+  
+  def followers
+    @title = "Followers"
+        @user = User.find(params[:id])
+        @users = @user.follower_users
   end
   
   def edit
@@ -45,4 +57,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to root_path if current_user != @user
   end
+  
+  
+  
 end
