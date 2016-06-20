@@ -24,12 +24,14 @@ class UsersController < ApplicationController
     @title = "Followings"
         @user = User.find(params[:id])
         @users = @user.following_users
+        redirect_to root_path if current_user != @user
   end
   
   def followers
     @title = "Followers"
         @user = User.find(params[:id])
         @users = @user.follower_users
+        redirect_to root_path if current_user != @user
   end
   
   def edit

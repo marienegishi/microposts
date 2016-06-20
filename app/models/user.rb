@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :microposts
 
  has_many :following_relationships, class_name:  "Relationship",
-                                     foreign_key: "following_id",
+                                     foreign_key: "follower_id",
                                      dependent:   :destroy
  has_many :following_users, through: :following_relationships, source: :followed
  
@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
                                     foreign_key: "followed_id",
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
+  
+  def feed_items
+    Micropost.where(user_id: following_user_ids + [self.id])
+  end
   
   # 他のユーザーをフォローする
   def follow(other_user)
