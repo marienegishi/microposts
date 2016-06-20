@@ -10,6 +10,7 @@
     </aside>
     <div class="col-md-8">
       <h3>Micropost Feed</h3>
+      <%= paginate @feed_items %>
       <%= render 'shared/feed' %>
     </div>
    </div>
@@ -19,4 +20,5 @@
 
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
+  
 <% end %>
